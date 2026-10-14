@@ -1,9 +1,9 @@
-/* mempool for Umbrel (blake2b): light/dark toggle and gold highlighting of blocks found by Blockchain Bandit.
+/* mempool for Umbrel (blake2b): light/dark toggle and gold highlighting of blocks found by Hash Bandit.
    Plain script, no dependencies. It only adds CSS classes to what the page already shows, so it keeps working
    when upstream changes its templates; if a selector stops matching, the highlight just doesn't appear. */
 (function () {
   "use strict";
-  var SLUG = "blockchainbandit";
+  var SLUG = "hashbandit";
   var root = document.documentElement;
 
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }

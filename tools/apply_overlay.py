@@ -55,7 +55,7 @@ def main():
         print("FAIL  frontend/src/resources is missing"); bad += 1
     comp = os.path.join(up, "frontend/src/app/shared/components/mining-pool/mining-pool.component.ts")
     if os.path.exists(comp) and "/resources/mining-pools/" not in open(comp, encoding="utf-8").read():
-        print("WARN  pool logos are no longer under /resources/mining-pools/: the Blockchain Bandit logo may not show")
+        print("WARN  pool logos are no longer under /resources/mining-pools/: the Hash Bandit logo may not show")
     if bad:
         return 2
     if a.check:

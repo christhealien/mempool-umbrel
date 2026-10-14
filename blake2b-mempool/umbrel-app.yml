@@ -2,9 +2,9 @@ manifestVersion: 1
 id: blake2b-mempool
 name: Mempool (blake2b)
 tagline: Bitcoin explorer with your pool's blocks in gold
-icon: https://raw.githubusercontent.com/christhealien/mempool-umbrel/master/blake2b-mempool/icon.svg?v=1.0.0
+icon: https://raw.githubusercontent.com/christhealien/mempool-umbrel/master/blake2b-mempool/icon.svg?v=1.0.1
 category: bitcoin
-version: "1.0.0"
+version: "1.0.1"
 port: 8792
 description: >-
   Your own Bitcoin block explorer, running against your own node and Electrs. It is built from the
@@ -13,7 +13,7 @@ description: >-
 
 
   This build wraps it in the same monochrome look as Blake2b ASIC Control and DATUM Gateway, with a
-  light/dark switch in the corner. Blocks found by Blockchain Bandit are recognised as their own pool
+  light/dark switch in the corner. Blocks found by Hash Bandit are recognised as their own pool
   and shown in gold, in the blocks strip, the block lists and on the block page, and a block that
   arrives while the page is open pulses once.
 
@@ -30,10 +30,14 @@ support: https://github.com/christhealien/mempool-umbrel/issues
 submitter: christhealien
 submission: https://github.com/christhealien/mempool-umbrel
 releaseNotes: |-
+  **1.0.1**
+
+  - Your pool is now called Hash Bandit (tag `Hash Bandit`; the old `Blockchain Bandit` tag still counts), with its own logo.
+
   **1.0.0: first release**
 
   - Mempool explorer from Horizon-btc/mempool (newest release), in the Blake2b monochrome theme with a light/dark switch.
-  - Blockchain Bandit added as a mining pool; its blocks are highlighted in gold, and a newly found block pulses.
+  - Hash Bandit added as a mining pool; its blocks are highlighted in gold, and a newly found block pulses.
   - Home-screen widget with recommended fees.
 path: ""
 defaultUsername: ""
