@@ -83,6 +83,11 @@ html[data-b2b="light"] .bitcoin-block.b2b-gold { filter: invert(1) hue-rotate(18
 html, body { background: #000 !important; color: var(--b2b-text); }
 body, button, input, select, textarea, .btn, .form-control { font-family: var(--b2b-sans) !important; }
 body { -webkit-font-smoothing: antialiased; }
+/* faint grid, like the Blake2b ASIC Control landing page */
+body { background-image: linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px) !important; background-size: 44px 44px !important; background-attachment: fixed !important; }
+/* numbers in monospace, labels in small spaced caps (same as the other apps) */
+.bitcoin-block .block-body, .fee-span, .fees-box, .table td, table td, .card-text, .stats-box .item, .progress-bar, .fiat, .symbol, .badge { font-family: var(--b2b-mono) !important; font-variant-numeric: tabular-nums; }
+.table td a, table td a { font-family: var(--b2b-mono); }
 a:not(.btn):not(.nav-link):not(.badge):not(.dropdown-item):not(.page-link) { color: var(--b2b-text); text-decoration: none; }
 a:not(.btn):not(.nav-link):not(.badge):not(.dropdown-item):not(.page-link):hover { color: var(--b2b-muted); text-decoration: underline; }
 h1, h2, h3, h4, h5, .title-block h1, .title-block h2 { color: var(--b2b-text) !important; letter-spacing: -.005em; font-weight: 650; }
@@ -95,20 +100,33 @@ h1, h2, h3, h4, h5, .title-block h1, .title-block h2 { color: var(--b2b-text) !i
 
 /* ---------- header: icon pills ---------- */
 .sticky-header, .navbar, header .navbar {
-  background: #000 !important;
+  background: rgba(0,0,0,.88) !important;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--b2b-line);
   box-shadow: none !important;
 }
-.navbar-brand img { height: 34px; width: auto; }
+.navbar-brand img { height: 36px; width: auto; max-width: none; }
 li.nav-item {
-  border-radius: 999px !important;
-  border: 1px solid transparent;
+  border-radius: 10px !important;
+  background: #161616;
+  border: 1px solid var(--b2b-line);
   transition: background .12s, border-color .12s;
 }
 @media (min-width: 992px) {
   li.nav-item { margin: auto 4px !important; padding: 6px 16px !important; }
 }
-li.nav-item:hover { background: #141414 !important; border-color: var(--b2b-line); }
+/* text labels next to the nav icons, like the tabs in ASIC Control */
+li.nav-item .nav-link { display: inline-flex !important; align-items: center; gap: 9px; }
+li.nav-item .nav-link::after { font-size: .88rem; font-weight: 500; line-height: 1; white-space: nowrap; }
+#btn-home .nav-link::after { content: "Dashboard"; }
+#btn-home .nav-link[href*="acceleration"]::after { content: "Accelerator"; }
+#btn-pools .nav-link::after { content: "Mining"; }
+#btn-blocks .nav-link::after { content: "Blocks"; }
+#btn-graphs .nav-link::after { content: "Graphs"; }
+#btn-lightning .nav-link::after { content: "Lightning"; }
+#btn-faucet .nav-link::after { content: "Faucet"; }
+li.nav-item.active .nav-link::after { color: #000; font-weight: 650; }
+li.nav-item:hover { background: #222 !important; border-color: #444; }
 li.nav-item.active, li.nav-item.active:hover { background: var(--b2b-text) !important; border-color: var(--b2b-text); }
 li.nav-item.active .svg-wrapper { filter: invert(1); }
 .navbar-nav .nav-link, .navbar-dark .navbar-nav .nav-link { color: var(--b2b-text) !important; }
@@ -122,11 +140,11 @@ li.nav-item.active .svg-wrapper { filter: invert(1); }
 /* ---------- search ---------- */
 app-search-form .form-control, .search-box-container .form-control {
   background: var(--b2b-panel) !important; color: var(--b2b-text) !important;
-  border: 1px solid var(--b2b-line) !important; border-radius: 999px !important; padding-left: 1.1rem;
+  border: 1px solid var(--b2b-line) !important; border-radius: 10px !important; padding-left: 1.1rem;
 }
 app-search-form .form-control:focus { border-color: #7a7a7a !important; box-shadow: none !important; }
 .btn-purple, app-search-form .btn, .search-submit {
-  background: var(--b2b-text) !important; border: 1px solid var(--b2b-text) !important; color: #000 !important; border-radius: 999px !important; box-shadow: none !important;
+  background: var(--b2b-text) !important; border: 1px solid var(--b2b-text) !important; color: #000 !important; border-radius: 10px !important; box-shadow: none !important;
 }
 .btn-purple:hover { background: #d6d6d6 !important; border-color: #d6d6d6 !important; }
 .btn-purple svg, .search-submit svg, .btn-purple fa-icon { color: #000 !important; fill: #000 !important; }
@@ -139,6 +157,8 @@ app-search-form .form-control:focus { border-color: #7a7a7a !important; box-shad
   border-radius: 14px !important;
   box-shadow: none !important;
 }
+/* stat tiles inside a card use the lighter tile colour, like the metric tiles in ASIC Control */
+.stats-box .item, app-fees-box .item { background: var(--b2b-panel2); border-radius: 12px; }
 .card-header { border-width: 0 0 1px 0 !important; border-radius: 14px 14px 0 0 !important; }
 .card-title, .title-block .card-title {
   color: var(--b2b-muted) !important; font-weight: 600; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase;
@@ -149,7 +169,7 @@ app-search-form .form-control:focus { border-color: #7a7a7a !important; box-shad
 .table-hover tbody tr:hover > *, tbody tr:hover > td { background-color: var(--b2b-panel2) !important; }
 .form-control, .form-select, input[type="text"], input[type="search"], input[type="number"], select, textarea, .input-group-text {
   background: var(--b2b-panel) !important; color: var(--b2b-text) !important;
-  border: 1px solid var(--b2b-line) !important; border-radius: 999px !important; box-shadow: none !important;
+  border: 1px solid var(--b2b-line) !important; border-radius: 10px !important; box-shadow: none !important;
 }
 textarea.form-control { border-radius: 14px !important; }
 .form-control:focus, .form-select:focus { border-color: #7a7a7a !important; }
@@ -162,7 +182,7 @@ hr { border-color: var(--b2b-line) !important; opacity: 1; }
 .alert { background: var(--b2b-panel2) !important; border: 1px solid var(--b2b-line) !important; color: var(--b2b-text) !important; border-radius: 12px; }
 
 /* ---------- buttons, pills, pagination, progress ---------- */
-.btn { border-radius: 999px !important; box-shadow: none !important; }
+.btn { border-radius: 10px !important; box-shadow: none !important; }
 .btn-primary, .btn-success, .btn-info {
   background: var(--b2b-text) !important; color: #000 !important; border: 1px solid var(--b2b-text) !important;
 }
@@ -171,15 +191,15 @@ hr { border-color: var(--b2b-line) !important; opacity: 1; }
   background: transparent !important; color: var(--b2b-text) !important; border: 1px solid var(--b2b-line) !important;
 }
 .btn-secondary:hover, .btn-outline-primary:hover { background: var(--b2b-panel2) !important; }
-.btn-group .btn, .btn-group-sm .btn, .btn-group > label { border-radius: 999px !important; }
+.btn-group .btn, .btn-group-sm .btn, .btn-group > label { border-radius: 10px !important; }
 .btn-check:checked + .btn, .btn.active, .btn-group .btn.active, .btn-primary.active { background: var(--b2b-text) !important; color: #000 !important; border-color: var(--b2b-text) !important; }
-.page-link { background: var(--b2b-panel) !important; color: var(--b2b-text) !important; border: 1px solid var(--b2b-line) !important; border-radius: 999px !important; margin: 0 2px; }
+.page-link { background: var(--b2b-panel) !important; color: var(--b2b-text) !important; border: 1px solid var(--b2b-line) !important; border-radius: 10px !important; margin: 0 2px; }
 .page-item.active .page-link { background: var(--b2b-text) !important; color: #000 !important; border-color: var(--b2b-text) !important; }
 .page-item.disabled .page-link { opacity: .4; }
 .progress { background: var(--b2b-panel2) !important; border-radius: 999px !important; }
 .progress-bar { background-color: var(--b2b-text) !important; color: #000 !important; }
 .nav-tabs { border-bottom: 1px solid var(--b2b-line) !important; }
-.nav-tabs .nav-link { border-radius: 999px !important; border: 1px solid transparent !important; color: var(--b2b-muted) !important; }
+.nav-tabs .nav-link { border-radius: 10px !important; background: #161616 !important; border-color: var(--b2b-line) !important; margin-right: 4px; color: var(--b2b-muted) !important; }
 .nav-tabs .nav-link.active { background: var(--b2b-text) !important; color: #000 !important; }
 
 /* ---------- fee colours become greys (darker = lower fee) ---------- */
@@ -228,7 +248,7 @@ html[data-b2b="light"] .bitcoin-block.b2b-gold .animated .badge { background: rg
 .b2b-gold-new { animation: b2b-found 1.4s ease-out 4; }
 
 /* ---------- footer ---------- */
-footer, app-global-footer footer { background: #000 !important; border-top: 1px solid var(--b2b-line); }
+footer, app-global-footer footer { background: rgba(0,0,0,.9) !important; border-top: 1px solid var(--b2b-line); }
 footer a { color: var(--b2b-muted) !important; }
 footer a:hover { color: var(--b2b-text) !important; }
 .footer .progress { height: 18px; }
