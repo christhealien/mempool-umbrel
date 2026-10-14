@@ -1,0 +1,62 @@
+manifestVersion: 1
+id: blake2b-mempool
+name: Mempool (blake2b)
+tagline: Bitcoin explorer with your pool's blocks in gold
+icon: https://raw.githubusercontent.com/christhealien/mempool-umbrel/master/blake2b-mempool/icon.svg?v=1.0.0
+category: bitcoin
+version: "1.0.0"
+port: 8792
+description: >-
+  Your own Bitcoin block explorer, running against your own node and Electrs. It is built from the
+  mempool fork at Horizon-btc/mempool (the one behind mempool.guide: DATUM miner names, OCEAN and Knots
+  statistics, reworked block health) and always follows its newest release.
+
+
+  This build wraps it in the same monochrome look as Blake2b ASIC Control and DATUM Gateway, with a
+  light/dark switch in the corner. Blocks found by Blockchain Bandit are recognised as their own pool
+  and shown in gold, in the blocks strip, the block lists and on the block page, and a block that
+  arrives while the page is open pulses once.
+
+
+  The first start indexes your node's blocks into the database, which takes a while. Needs the
+  Bitcoin node and Electrs apps.
+developer: Mempool Space K.K. (upstream); theme and packaging by christhealien
+website: https://github.com/christhealien/mempool-umbrel
+dependencies:
+  - bitcoin
+  - electrs
+repo: https://github.com/christhealien/mempool-umbrel
+support: https://github.com/christhealien/mempool-umbrel/issues
+submitter: christhealien
+submission: https://github.com/christhealien/mempool-umbrel
+releaseNotes: |-
+  **1.0.0: first release**
+
+  - Mempool explorer from Horizon-btc/mempool (newest release), in the Blake2b monochrome theme with a light/dark switch.
+  - Blockchain Bandit added as a mining pool; its blocks are highlighted in gold, and a newly found block pulses.
+  - Home-screen widget with recommended fees.
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+widgets:
+  - id: "stats"
+    type: "four-stats"
+    refresh: "5s"
+    endpoint: "widget-server:3000/widgets/fees"
+    link: ""
+    example:
+      type: "four-stats"
+      link: ""
+      items:
+        - title: "No priority"
+          text: "2"
+          subtext: "sat/vB"
+        - title: "Low priority"
+          text: "6"
+          subtext: "sat/vB"
+        - title: "Medium priority"
+          text: "18"
+          subtext: "sat/vB"
+        - title: "High priority"
+          text: "27"
+          subtext: "sat/vB"
