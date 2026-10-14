@@ -32,6 +32,9 @@
   function mark(el, isNew) {
     if (!el || el.classList.contains("b2b-gold")) return;
     el.classList.add("b2b-gold");
+    if (el.classList.contains("bitcoin-block") && !el.querySelector(".b2b-star")) {
+      var st = document.createElement("span"); st.className = "b2b-star"; st.textContent = "\u2605"; el.appendChild(st);
+    }
     if (isNew) { el.classList.add("b2b-gold-new"); setTimeout(function () { el.classList.remove("b2b-gold-new"); }, 6000); }
   }
   function scan() {
@@ -49,7 +52,10 @@
     // blocks that were gold but got re-used by the page for another block (the strip recycles elements)
     var golds = document.querySelectorAll(".bitcoin-block.b2b-gold");
     for (var j = 0; j < golds.length; j++) {
-      if (!golds[j].querySelector(GOLD_SEL)) { golds[j].classList.remove("b2b-gold", "b2b-gold-new"); }
+      if (!golds[j].querySelector(GOLD_SEL)) {
+        golds[j].classList.remove("b2b-gold", "b2b-gold-new");
+        var old = golds[j].querySelector(".b2b-star"); if (old) old.remove();
+      }
     }
   }
 
