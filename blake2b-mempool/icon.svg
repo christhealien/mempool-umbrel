@@ -1,11 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-  <!-- Mempool (blake2b): a single block, drawn as the 3D cubes the explorer is known for -->
+  <!-- Mempool: the block being built (a packed grid of transactions, one highlighted) with the queue of next blocks behind it -->
   <rect width="256" height="256" rx="56" fill="#000"/>
-  <g transform="translate(128 128) scale(.92) translate(-128 -128)">
-  <g stroke="#000" stroke-width="7" stroke-linejoin="round">
-    <polygon points="128,40 206,84 128,128 50,84" fill="#f4f4f4"/>
-    <polygon points="50,84 128,128 128,216 50,172" fill="#5a5a5a"/>
-    <polygon points="206,84 128,128 128,216 206,172" fill="#a8a8a8"/>
-  </g>
-  </g>
+  <rect x="96" y="36" width="128" height="128" rx="20" fill="none" stroke="#3a3a3a" stroke-width="7"/>
+  <rect x="72" y="60" width="128" height="128" rx="20" fill="#000" stroke="#6a6a6a" stroke-width="7"/>
+  <rect x="48" y="84" width="128" height="128" rx="20" fill="#0e0e0e" stroke="#f4f4f4" stroke-width="9"/>
+  <rect x="62" y="98" width="52" height="50" rx="5" fill="#9a9a9a"/><rect x="118" y="98" width="44" height="30" rx="5" fill="#5a5a5a"/><rect x="118" y="132" width="44" height="16" rx="5" fill="#7a7a7a"/><rect x="62" y="152" width="28" height="46" rx="5" fill="#7a7a7a"/><rect x="94" y="152" width="34" height="46" rx="5" fill="#f4f4f4"/><rect x="132" y="152" width="30" height="20" rx="5" fill="#5a5a5a"/><rect x="132" y="176" width="30" height="22" rx="5" fill="#b8b8b8"/>
 </svg>
