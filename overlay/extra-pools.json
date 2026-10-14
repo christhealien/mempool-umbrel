@@ -1,9 +1,9 @@
 [
   {
     "id": 9000,
-    "name": "Blockchain Bandit",
+    "name": "Hash Bandit",
     "addresses": [],
-    "tags": ["Blockchain Bandit"],
+    "tags": ["Hash Bandit", "Blockchain Bandit"],
     "link": "https://github.com/christhealien",
     "DATUM": true
   }

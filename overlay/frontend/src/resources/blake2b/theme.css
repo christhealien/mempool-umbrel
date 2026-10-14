@@ -1,6 +1,6 @@
 /* mempool for Umbrel (blake2b): monochrome theme matching Blake2b ASIC Control and DATUM Gateway.
    Black page, white text, greys for everything else; fee colours and green/red stay as they are because
-   they carry meaning. Gold marks blocks found by Blockchain Bandit. Light mode is a colour inversion
+   they carry meaning. Gold marks blocks found by Hash Bandit. Light mode is a colour inversion
    of this dark theme (see the html filter below), toggled with the sun/moon button. */
 
 :root {
@@ -127,7 +127,7 @@ hr { border-color: var(--b2b-line) !important; opacity: 1; }
 }
 .badge.miner-name, .block-body .badge { background: var(--b2b-panel2) !important; color: var(--b2b-text) !important; border: 1px solid var(--b2b-line); }
 
-/* ---------- gold: blocks found by Blockchain Bandit ---------- */
+/* ---------- gold: blocks found by Hash Bandit ---------- */
 .bitcoin-block.mined-block.b2b-gold {
   background: linear-gradient(180deg, #3b2c05 0%, #1d1602 100%) !important;
   border: 1px solid var(--b2b-gold) !important;
