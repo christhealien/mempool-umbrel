@@ -243,11 +243,13 @@ div[echarts], .echarts, .chart, .chart-widget, .chart-graph, .epoch-progress svg
 .chart text, .echarts text, .chart-widget text { font-family: var(--b2b-mono) !important; }
 .epoch-progress, .halving-progress { --mainnet-alt: #8c8c8c; }
 
-/* pool charts: a pie in pure grey cannot tell pools apart, so these keep a muted tint of each pool's own colour
-   (change .55 for more or less colour; 0 = pure grey) and are a little darker so no slice washes out to white */
-app-pool-ranking div[echarts], app-pool-ranking .chart, app-pool-ranking .chart-widget,
+/* pool pie: greys are set in the chart itself (see tools/apply_overlay.py), neighbouring pools alternate light and dark */
+app-pool-ranking div[echarts], app-pool-ranking .chart, app-pool-ranking .chart-widget {
+  filter: none;
+}
+/* pool hashrate lines: pure grey, with extra contrast so the stacked pools still separate */
 app-hashrate-chart-pools div[echarts], app-hashrate-chart-pools .chart, app-hashrate-chart-pools .chart-widget {
-  filter: saturate(.55) brightness(.82) contrast(1.12);
+  filter: grayscale(1) brightness(1.05) contrast(1.35);
 }
 
 /* difficulty bar: shaded from dark to light across the epoch, so progress reads at a glance */

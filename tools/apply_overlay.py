@@ -25,6 +25,27 @@ def _stamp(name):
     with open(os.path.join(HERE, "overlay/frontend/src/resources/blake2b", name), "rb") as f:
         return hashlib.sha1(f.read()).hexdigest()[:10]
 
+POOLRANK = "frontend/src/app/components/pool-ranking/pool-ranking.component.ts"
+# (old, new) pairs, each anchored on exact upstream text. Cosmetic, so a miss only warns.
+POOLRANK_EDITS = [
+    ("""      const poolColor = poolsColor[pool.name.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()]
+        ?? PoolRankingComponent.SERIES_COLORS[paletteIndex++ % PoolRankingComponent.SERIES_COLORS.length];""",
+     """      // blake2b overlay: monochrome pie. Greys alternate light/dark so neighbours always differ
+      const poolColor = PoolRankingComponent.B2B_GREYS[sources.length % PoolRankingComponent.B2B_GREYS.length];"""),
+    ("""  private static readonly BAND_LIGHTEST = 0.84;""",
+     """  private static readonly B2B_GREYS = ['#f0f0f0', '#6e6e6e', '#cfcfcf', '#4c4c4c', '#e0e0e0', '#8a8a8a', '#b8b8b8', '#5a5a5a', '#d8d8d8', '#7c7c7c'];
+  private static readonly BAND_LIGHTEST = 0.84;"""),
+    ("""    const hex = color.replace('#', '');
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);""",
+     """    // blake2b overlay: grey bands, shaded around the pool's own grey so each pool keeps its tone
+    const base = parseInt(color.replace('#', '').slice(0, 2), 16) / 255;
+    const grey = Math.max(0.16, Math.min(0.96, base + (lightness - 0.71) * 0.55));
+    const gh = Math.round(grey * 255).toString(16).padStart(2, '0');
+    if (gh) { return '#' + gh + gh + gh; }
+    const hex = color.replace('#', '');
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);"""),
+]
+
 POOLS = "backend/src/tasks/pools-updater.ts"
 POOLS_ANCHOR = "poolsParser.setMiningPools(poolsJson);"
 POOLS_CODE = """// blake2b overlay: pools of our own that the shared list does not know (see overlay/extra-pools.json)
@@ -75,6 +96,16 @@ def main():
         extra = json.load(open(os.path.join(HERE, "overlay/extra-pools.json")))
         t = t.replace(POOLS_ANCHOR, POOLS_CODE % json.dumps(extra))
         open(pp, "w", encoding="utf-8").write(t)
+    rp = os.path.join(up, POOLRANK)
+    if os.path.exists(rp):
+        c = open(rp, encoding="utf-8").read()
+        if "B2B_GREYS" not in c:
+            if all(c.count(o) == 1 for o, _ in POOLRANK_EDITS):
+                for o, n in POOLRANK_EDITS:
+                    c = c.replace(o, n)
+                open(rp, "w", encoding="utf-8").write(c)
+            else:
+                print("WARN  pool-ranking.component.ts changed upstream: pie stays in the pool colours")
     print("OK  overlay applied")
     return 0
 
