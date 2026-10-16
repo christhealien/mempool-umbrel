@@ -12,12 +12,28 @@
   function apply(t) { root.setAttribute("data-b2b", t === "light" ? "light" : "dark"); var b = document.getElementById("b2b-toggle"); if (b) { b.textContent = t === "light" ? "☾" : "☀"; b.title = t === "light" ? "Switch to dark" : "Switch to light"; b.setAttribute("aria-label", b.title); } }
   var theme = store("b2b-theme") === "light" ? "light" : "dark";
   apply(theme);
+  /* the toggle lives next to the search box (in the header, so it never floats over the page); until that box exists it is a fixed corner button */
+  function dock(b) {
+    var search = document.querySelector("app-search-form");
+    if (!search || !search.parentNode) return;
+    var wrap = search.parentNode;
+    if (!wrap.classList || !wrap.classList.contains("b2b-searchwrap")) {
+      wrap = document.createElement("div"); wrap.className = "b2b-searchwrap";
+      search.parentNode.insertBefore(wrap, search); wrap.appendChild(search);
+    }
+    if (b.parentNode !== wrap) wrap.appendChild(b);
+    b.classList.add("b2b-docked");
+  }
   function addToggle() {
-    if (document.getElementById("b2b-toggle") || !document.body) return;
-    var b = document.createElement("button");
-    b.id = "b2b-toggle"; b.type = "button";
-    b.addEventListener("click", function () { theme = theme === "light" ? "dark" : "light"; store("b2b-theme", theme); apply(theme); });
-    document.body.appendChild(b); apply(theme);
+    if (!document.body) return;
+    var b = document.getElementById("b2b-toggle");
+    if (!b) {
+      b = document.createElement("button");
+      b.id = "b2b-toggle"; b.type = "button";
+      b.addEventListener("click", function () { theme = theme === "light" ? "dark" : "light"; store("b2b-theme", theme); apply(theme); });
+      document.body.appendChild(b); apply(theme);
+    }
+    if (!b.classList.contains("b2b-docked") || !b.parentNode || !b.parentNode.classList || !b.parentNode.classList.contains("b2b-searchwrap")) dock(b);
   }
 
   /* ----- gold ----- */
