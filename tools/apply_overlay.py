@@ -10,14 +10,20 @@ Every patch is anchored on an exact line of upstream. A missing anchor is report
 the pool patch is fatal too unless --lenient is given (so an upstream refactor never ships a half-themed build
 without anyone noticing). With --check nothing is written.
 """
-import argparse, json, os, shutil, sys
+import argparse, hashlib, json, os, shutil, sys
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INDEX = "frontend/src/index.mempool.html"
 INDEX_ANCHOR = "</body>"
-INDEX_ADD = ('  <link rel="stylesheet" href="/resources/blake2b/theme.css">\n'
-             '  <script src="/resources/blake2b/bandit.js" defer></script>\n')
+INDEX_ADD = ('  <link rel="stylesheet" href="/resources/blake2b/theme.css?v=%s">\n'
+             '  <script src="/resources/blake2b/bandit.js?v=%s" defer></script>\n')
+
+
+def _stamp(name):
+    """short content hash, so a browser never keeps showing an old theme after an update"""
+    with open(os.path.join(HERE, "overlay/frontend/src/resources/blake2b", name), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:10]
 
 POOLS = "backend/src/tasks/pools-updater.ts"
 POOLS_ANCHOR = "poolsParser.setMiningPools(poolsJson);"
@@ -63,7 +69,7 @@ def main():
 
     shutil.copytree(os.path.join(HERE, "overlay/frontend"), os.path.join(up, "frontend"), dirs_exist_ok=True)
     if "blake2b/theme.css" not in s:
-        s = s.replace(INDEX_ANCHOR, INDEX_ADD + INDEX_ANCHOR)
+        s = s.replace(INDEX_ANCHOR, (INDEX_ADD % (_stamp("theme.css"), _stamp("bandit.js"))) + INDEX_ANCHOR)
         open(ip, "w", encoding="utf-8").write(s)
     if pools_ok and "blake2bExtraPools" not in t:
         extra = json.load(open(os.path.join(HERE, "overlay/extra-pools.json")))
