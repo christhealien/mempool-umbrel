@@ -10,7 +10,7 @@ services:
 
   web:
     # Built from the newest Horizon-btc/mempool release plus this repo's overlay, by GitHub Actions (amd64 + arm64)
-    image: ghcr.io/christhealien/blake2b-mempool-frontend:1.0.7
+    image: ghcr.io/christhealien/blake2b-mempool-frontend:1.0.9
     user: "1000:1000"
     init: true
     restart: on-failure
@@ -26,7 +26,7 @@ services:
       ACCELERATOR_BUTTON: "false"
 
   api:
-    image: ghcr.io/christhealien/blake2b-mempool-backend:1.0.7
+    image: ghcr.io/christhealien/blake2b-mempool-backend:1.0.9
     user: "1000:1000"
     init: true
     restart: on-failure

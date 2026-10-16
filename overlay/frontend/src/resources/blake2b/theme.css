@@ -227,7 +227,7 @@ app-mempool-block-overview canvas, app-block-overview-graph canvas {
 
 /* ---------- charts: same look as the charts in ASIC Control (light line on black, dotted grid, mono labels) ---------- */
 div[echarts], .echarts, .chart, .chart-widget, .chart-graph, .epoch-progress svg {
-  filter: grayscale(1) brightness(1.45) contrast(1.05);
+  filter: grayscale(1) brightness(1.12) contrast(1.15);
 }
 .chart text, .echarts text, .chart-widget text { font-family: var(--b2b-mono) !important; }
 .epoch-progress, .halving-progress { --mainnet-alt: #8c8c8c; }
