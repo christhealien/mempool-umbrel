@@ -9,7 +9,7 @@
   function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
 
   /* ----- theme ----- */
-  function apply(t) { root.setAttribute("data-b2b", t === "light" ? "light" : "dark"); var b = document.getElementById("b2b-toggle"); if (b) { b.textContent = t === "light" ? "☾" : "☀"; b.title = t === "light" ? "Switch to dark" : "Switch to light"; b.setAttribute("aria-label", b.title); } }
+  function apply(t) { root.setAttribute("data-b2b", t === "light" ? "light" : "dark"); var b = document.getElementById("b2b-toggle"); if (b) { b.innerHTML = t === "light" ? '☾<span class="b2b-tl"> Dark</span>' : '☀<span class="b2b-tl"> Light</span>'; b.title = t === "light" ? "Switch to dark" : "Switch to light"; b.setAttribute("aria-label", b.title); } }
   var theme = store("b2b-theme") === "light" ? "light" : "dark";
   apply(theme);
   /* the toggle lives next to the search box (in the header, so it never floats over the page); until that box exists it is a fixed corner button */

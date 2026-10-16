@@ -105,19 +105,26 @@ h1, h2, h3, h4, h5, .title-block h1, .title-block h2 { color: var(--b2b-text) !i
   border-bottom: 1px solid var(--b2b-line);
   box-shadow: none !important;
 }
-.navbar-brand img { height: 36px; width: auto; max-width: none; }
+.navbar { min-height: 56px !important; padding-top: .7rem !important; padding-bottom: .7rem !important; padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+.navbar-brand { margin-right: 1.1rem; }
+.navbar-brand img { height: 30px; width: auto; max-width: none; }
 li.nav-item {
   border-radius: 10px !important;
   background: #161616;
   border: 1px solid var(--b2b-line);
   transition: background .12s, border-color .12s;
 }
+/* same size, spacing and weight as the tabs in DATUM Gateway and ASIC Control: .88rem text, 10px corners, about 33px tall */
+li.nav-item { padding: 0 !important; margin: 0 !important; display: flex; align-items: stretch; }
+li.nav-item .nav-link { padding: .38rem .8rem !important; }
+li.nav-item .svg-wrapper { height: 16px !important; width: auto !important; margin: 0 !important; }
+li.nav-item .svg-wrapper svg, li.nav-item .svg-wrapper app-svg-images { height: 16px !important; width: auto !important; }
 @media (min-width: 992px) {
-  li.nav-item { margin: auto 4px !important; padding: 6px 16px !important; }
+  .navbar-nav { gap: .4rem; align-items: center; }
 }
 /* text labels next to the nav icons, like the tabs in ASIC Control */
-li.nav-item .nav-link { display: inline-flex !important; align-items: center; gap: 9px; }
-li.nav-item .nav-link::after { font-size: .88rem; font-weight: 500; line-height: 1; white-space: nowrap; }
+li.nav-item .nav-link { display: inline-flex !important; align-items: center; gap: .4rem; line-height: 1.3; }
+li.nav-item .nav-link::after { font-size: .88rem; font-weight: 400; line-height: 1.3; white-space: nowrap; }
 #btn-home .nav-link::after { content: "Dashboard"; }
 #btn-home .nav-link[href*="acceleration"]::after { content: "Accelerator"; }
 #btn-pools .nav-link::after { content: "Mining"; }
@@ -125,7 +132,7 @@ li.nav-item .nav-link::after { font-size: .88rem; font-weight: 500; line-height:
 #btn-graphs .nav-link::after { content: "Graphs"; }
 #btn-lightning .nav-link::after { content: "Lightning"; }
 #btn-faucet .nav-link::after { content: "Faucet"; }
-li.nav-item.active .nav-link::after { color: #000; font-weight: 650; }
+li.nav-item.active .nav-link::after { color: #000; font-weight: 600; }
 li.nav-item:hover { background: #222 !important; border-color: #444; }
 li.nav-item.active, li.nav-item.active:hover { background: var(--b2b-text) !important; border-color: var(--b2b-text); }
 li.nav-item.active .svg-wrapper { filter: invert(1); }
@@ -133,9 +140,9 @@ li.nav-item.active .svg-wrapper { filter: invert(1); }
 @media (max-width: 991px) {
   /* phones: the tabs are mempool's bottom bar; keep it above everything and give each tab room */
   .navbar-nav { background: #000 !important; border-top: 1px solid var(--b2b-line); box-shadow: none !important; z-index: 2147482000; padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); gap: 6px; }
-  li.nav-item { margin: 0 !important; padding: 0 4px !important; flex: 1 1 0; }
-  li.nav-item .nav-link { justify-content: center; padding: 10px 0 !important; }
-  li.nav-item .nav-link::after { font-size: .8rem; }
+  li.nav-item { flex: 1 1 0; }
+  li.nav-item .nav-link { justify-content: center; width: 100%; padding: .55rem .3rem !important; }
+  li.nav-item .nav-link::after { font-size: .82rem; }
   body { padding-bottom: 72px; }
 }
 .dropdown-menu { background: var(--b2b-panel) !important; border: 1px solid var(--b2b-line) !important; border-radius: 14px !important; box-shadow: 0 10px 40px rgba(0,0,0,.6) !important; }
@@ -145,11 +152,11 @@ li.nav-item.active .svg-wrapper { filter: invert(1); }
 /* ---------- search ---------- */
 app-search-form .form-control, .search-box-container .form-control {
   background: var(--b2b-panel) !important; color: var(--b2b-text) !important;
-  border: 1px solid var(--b2b-line) !important; border-radius: 10px !important; padding-left: 1.1rem;
+  border: 1px solid var(--b2b-line) !important; border-radius: 10px !important; height: 34px; padding: .38rem .8rem !important; font-size: .88rem;
 }
 app-search-form .form-control:focus { border-color: #7a7a7a !important; box-shadow: none !important; }
 .btn-purple, app-search-form .btn, .search-submit {
-  background: var(--b2b-text) !important; border: 1px solid var(--b2b-text) !important; color: #000 !important; border-radius: 10px !important; box-shadow: none !important;
+  background: var(--b2b-text) !important; border: 1px solid var(--b2b-text) !important; color: #000 !important; border-radius: 10px !important; box-shadow: none !important; height: 34px; padding: 0 .8rem !important; font-size: .88rem; font-weight: 600;
 }
 .btn-purple:hover { background: #d6d6d6 !important; border-color: #d6d6d6 !important; }
 .btn-purple svg, .search-submit svg, .btn-purple fa-icon { color: #000 !important; fill: #000 !important; }
@@ -307,7 +314,12 @@ footer a:hover { color: var(--b2b-text) !important; }
 .b2b-searchwrap { display: flex; align-items: center; gap: 8px; flex: 1 1 auto; min-width: 0; }
 @media (min-width: 992px) { .b2b-searchwrap { max-width: 560px; } }
 .b2b-searchwrap > app-search-form { flex: 1 1 auto; min-width: 0; }
-#b2b-toggle.b2b-docked { position: static; z-index: auto; flex: 0 0 auto; width: 40px; height: 40px; border-radius: 10px; background: #161616; border-color: var(--b2b-line); opacity: 1; }
+#b2b-toggle.b2b-docked { position: static; z-index: auto; flex: 0 0 auto; width: auto; min-width: 34px; height: 34px; padding: 0 .8rem; gap: .2rem; font-size: .88rem; font-family: var(--b2b-sans); border-radius: 10px; background: #161616; border-color: var(--b2b-line); opacity: 1; }
 #b2b-toggle.b2b-docked:hover { background: #222; border-color: #444; }
 #b2b-toggle:hover { opacity: 1; border-color: var(--b2b-text); }
 @media (prefers-reduced-motion: reduce) { .b2b-gold-new { animation: none; } }
+
+/* the word next to the sun/moon shows on wide screens only, like in DATUM Gateway */
+#b2b-toggle .b2b-tl { display: none; }
+@media (min-width: 700px) { #b2b-toggle.b2b-docked .b2b-tl { display: inline; } }
+@media (max-width: 699px) { #b2b-toggle.b2b-docked { padding: 0; width: 34px; } }
