@@ -254,6 +254,14 @@ html[data-b2b="light"] .bitcoin-block.b2b-gold .animated .badge { background: rg
 }
 .b2b-gold-new { animation: b2b-found 1.4s ease-out 4; }
 
+/* ---------- the mempool wordmark (footer, tracker, other pages) becomes our logo ---------- */
+app-svg-images[name="mempoolSpace"], app-svg-images[name="officialMempoolSpace"] {
+  display: block !important; min-width: 220px; height: 42px;
+  background: url(/resources/mempooldotguide.png) left center / contain no-repeat;
+}
+app-svg-images[name="mempoolSpace"] svg, app-svg-images[name="officialMempoolSpace"] svg { display: none !important; }
+footer .main-logo app-svg-images { width: 270px; height: 45px; }
+
 /* ---------- footer ---------- */
 footer, app-global-footer footer { background: #000 !important; border-top: 1px solid var(--b2b-line); }
 footer a { color: var(--b2b-muted) !important; }
