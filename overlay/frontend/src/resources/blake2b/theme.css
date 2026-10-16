@@ -40,11 +40,11 @@
   --box-bg: #0e0e0e;
   --stat-box-bg: #0a0a0a;
   --border-subtle: rgba(255, 255, 255, 0.14);
-  --block-top: #3a3a3a;
-  --block-side: #1f1f1f;
+  --block-top: #707070;
+  --block-side: #484848;
   --block-goggles-overlay: #0a0a0a7f;
-  --mempool-block-top: #2e2e2e;
-  --mempool-block-side: #191919;
+  --mempool-block-top: #5c5c5c;
+  --mempool-block-side: #3c3c3c;
   --mempool-block-loading: #333;
   --alert-bg: #1a1a1a;
   --navbar-bg: #000;
@@ -218,7 +218,11 @@ app-mempool-block-overview canvas, app-block-overview-graph canvas {
   filter: grayscale(1) contrast(1.08);
 }
 /* block faces: the fee colour fill is dimmed (multiplied with grey) so the white text always sits on a dark-to-mid grey, and every line gets a dark outline */
-.bitcoin-block:not(.b2b-gold) { background-color: #5c5c5c !important; background-blend-mode: multiply; }
+.bitcoin-block:not(.b2b-gold) {
+  --secondary: #707070;                       /* the empty part of a block */
+  background-color: #a4a4a4 !important; background-blend-mode: multiply;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.22), inset 0 1px 0 rgba(255,255,255,.18), 0 0 16px rgba(255,255,255,.08);
+}
 .bitcoin-block:not(.b2b-gold) .block-body, .bitcoin-block:not(.b2b-gold) .block-body * { color: #fff !important; text-shadow: 0 0 2px #000, 0 1px 3px #000, 0 0 8px rgba(0,0,0,.85); }
 .bitcoin-block:not(.b2b-gold) .fee-span, .bitcoin-block:not(.b2b-gold) .fee-span * { color: #e2e2e2 !important; }
 .bitcoin-block .block-height, .bitcoin-block .block-height * { text-shadow: none; }
@@ -231,6 +235,10 @@ div[echarts], .echarts, .chart, .chart-widget, .chart-graph, .epoch-progress svg
 }
 .chart text, .echarts text, .chart-widget text { font-family: var(--b2b-mono) !important; }
 .epoch-progress, .halving-progress { --mainnet-alt: #8c8c8c; }
+
+/* difficulty bar: shaded from dark to light across the epoch, so progress reads at a glance */
+#diff-gradient stop:nth-child(1) { stop-color: #3c3c3c; }
+#diff-gradient stop:nth-child(2) { stop-color: #f4f4f4; }
 
 /* ---------- gold: blocks found by Hash Bandit ---------- */
 .bitcoin-block.b2b-gold {
@@ -287,6 +295,12 @@ footer a:hover { color: var(--b2b-text) !important; }
   background: var(--b2b-panel); color: var(--b2b-text); border: 1px solid #4a4a4a;
   font-size: 18px; line-height: 1; cursor: pointer; opacity: .85;
 }
-@media (max-width: 991px) { #b2b-toggle { top: 13px; bottom: auto; right: 12px; width: 36px; height: 36px; } }
+@media (max-width: 991px) { #b2b-toggle:not(.b2b-docked) { top: 13px; bottom: auto; right: 12px; width: 36px; height: 36px; } }
+/* docked: sits in the header, right of the search button, and scrolls with the header */
+.b2b-searchwrap { display: flex; align-items: center; gap: 8px; flex: 1 1 auto; min-width: 0; }
+@media (min-width: 992px) { .b2b-searchwrap { max-width: 560px; } }
+.b2b-searchwrap > app-search-form { flex: 1 1 auto; min-width: 0; }
+#b2b-toggle.b2b-docked { position: static; z-index: auto; flex: 0 0 auto; width: 40px; height: 40px; border-radius: 10px; background: #161616; border-color: var(--b2b-line); opacity: 1; }
+#b2b-toggle.b2b-docked:hover { background: #222; border-color: #444; }
 #b2b-toggle:hover { opacity: 1; border-color: var(--b2b-text); }
 @media (prefers-reduced-motion: reduce) { .b2b-gold-new { animation: none; } }
