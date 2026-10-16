@@ -68,6 +68,7 @@
   --bs-body-color: #f4f4f4;
   --bs-body-bg: #000;
   --bs-border-radius: .6rem;
+  --mainnet: #7a7a7a; --mainnet-alt: #8c8c8c; --testnet: #5a5a5a; --testnet-alt: #4a4a4a; --signet: #5a5a5a; --signet-alt: #4a4a4a;
 }
 
 /* ---------- light mode: invert the whole page, then put pictures back ---------- */
@@ -187,10 +188,13 @@ hr { border-color: var(--b2b-line) !important; opacity: 1; }
 
 /* ---------- buttons, pills, pagination, progress ---------- */
 .btn { border-radius: 10px !important; box-shadow: none !important; }
-.btn-primary, .btn-success, .btn-info {
-  background: var(--b2b-text) !important; color: #000 !important; border: 1px solid var(--b2b-text) !important;
+.btn-primary, .btn-success, .btn-info, .btn-secondary, .btn-outline-primary, .btn-outline-secondary, .btn-dark, .dropdown-toggle.btn {
+  background: #161616 !important; color: var(--b2b-text) !important; border: 1px solid var(--b2b-line) !important;
 }
-.btn-primary:hover, .btn-success:hover { background: #d6d6d6 !important; }
+.btn-primary:hover, .btn-success:hover, .btn-info:hover, .btn-secondary:hover { background: #222 !important; border-color: #444 !important; }
+.btn-primary.active, .btn-success.active, .btn-info.active, .btn-secondary.active, .show > .btn-primary.dropdown-toggle, .btn-primary:active {
+  background: var(--b2b-text) !important; color: #000 !important; border-color: var(--b2b-text) !important; font-weight: 600;
+}
 .btn-secondary, .btn-outline-primary, .btn-outline-secondary, .btn-dark, .btn-link {
   background: transparent !important; color: var(--b2b-text) !important; border: 1px solid var(--b2b-line) !important;
 }
@@ -209,7 +213,7 @@ hr { border-color: var(--b2b-line) !important; opacity: 1; }
 /* ---------- fee colours become greys (darker = lower fee) ---------- */
 .mempool-blocks-container .bitcoin-block,
 .blocks-container .bitcoin-block:not(.b2b-gold),
-app-fees-box, app-difficulty .progress, app-mempool-graph, app-incoming-transactions-graph,
+app-fees-box, app-difficulty .progress,
 app-mempool-block-overview canvas, app-block-overview-graph canvas {
   filter: grayscale(1) contrast(1.08);
 }
@@ -220,6 +224,13 @@ app-mempool-block-overview canvas, app-block-overview-graph canvas {
 .bitcoin-block .block-height, .bitcoin-block .block-height * { text-shadow: none; }
 .bitcoin-block .block-height a, .bitcoin-block .block-height-link { color: var(--b2b-text) !important; }
 .on-pool { background: var(--b2b-panel2) !important; border: 1px solid var(--b2b-line); border-radius: 999px !important; }
+
+/* ---------- charts: same look as the charts in ASIC Control (light line on black, dotted grid, mono labels) ---------- */
+div[echarts], .echarts, .chart, .chart-widget, .chart-graph, .epoch-progress svg {
+  filter: grayscale(1) brightness(1.45) contrast(1.05);
+}
+.chart text, .echarts text, .chart-widget text { font-family: var(--b2b-mono) !important; }
+.epoch-progress, .halving-progress { --mainnet-alt: #8c8c8c; }
 
 /* ---------- gold: blocks found by Hash Bandit ---------- */
 .bitcoin-block.b2b-gold {
