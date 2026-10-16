@@ -11,7 +11,7 @@
   --b2b-panel2: #1a1a1a;
   --b2b-line: #2c2c2c;
   --b2b-text: #f4f4f4;
-  --b2b-muted: #a0a0a0;
+  --b2b-muted: #b4b4b4;
   --b2b-gold: #f0b429;
   --b2b-gold-hi: #ffd36a;
   --b2b-gold-lo: #8a6410;
@@ -100,8 +100,7 @@ h1, h2, h3, h4, h5, .title-block h1, .title-block h2 { color: var(--b2b-text) !i
 
 /* ---------- header: icon pills ---------- */
 .sticky-header, .navbar, header .navbar {
-  background: rgba(0,0,0,.88) !important;
-  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  background: #000 !important;   /* no backdrop-filter: it would make the phone's fixed bottom tab bar stick to the header instead of the screen */
   border-bottom: 1px solid var(--b2b-line);
   box-shadow: none !important;
 }
@@ -131,7 +130,12 @@ li.nav-item.active, li.nav-item.active:hover { background: var(--b2b-text) !impo
 li.nav-item.active .svg-wrapper { filter: invert(1); }
 .navbar-nav .nav-link, .navbar-dark .navbar-nav .nav-link { color: var(--b2b-text) !important; }
 @media (max-width: 991px) {
-  .navbar-nav { background: #000 !important; border-top: 1px solid var(--b2b-line); box-shadow: none !important; }
+  /* phones: the tabs are mempool's bottom bar; keep it above everything and give each tab room */
+  .navbar-nav { background: #000 !important; border-top: 1px solid var(--b2b-line); box-shadow: none !important; z-index: 2147482000; padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); gap: 6px; }
+  li.nav-item { margin: 0 !important; padding: 0 4px !important; flex: 1 1 0; }
+  li.nav-item .nav-link { justify-content: center; padding: 10px 0 !important; }
+  li.nav-item .nav-link::after { font-size: .8rem; }
+  body { padding-bottom: 72px; }
 }
 .dropdown-menu { background: var(--b2b-panel) !important; border: 1px solid var(--b2b-line) !important; border-radius: 14px !important; box-shadow: 0 10px 40px rgba(0,0,0,.6) !important; }
 .dropdown-item { color: var(--b2b-text) !important; border-radius: 8px; }
@@ -209,8 +213,11 @@ app-fees-box, app-difficulty .progress, app-mempool-graph, app-incoming-transact
 app-mempool-block-overview canvas, app-block-overview-graph canvas {
   filter: grayscale(1) contrast(1.08);
 }
-.bitcoin-block .fee-span { color: var(--b2b-muted) !important; }
-.bitcoin-block, .bitcoin-block .block-body { color: var(--b2b-text); }
+/* block faces: the fee colour fill is dimmed (multiplied with grey) so the white text always sits on a dark-to-mid grey, and every line gets a dark outline */
+.bitcoin-block:not(.b2b-gold) { background-color: #5c5c5c !important; background-blend-mode: multiply; }
+.bitcoin-block:not(.b2b-gold) .block-body, .bitcoin-block:not(.b2b-gold) .block-body * { color: #fff !important; text-shadow: 0 0 2px #000, 0 1px 3px #000, 0 0 8px rgba(0,0,0,.85); }
+.bitcoin-block:not(.b2b-gold) .fee-span, .bitcoin-block:not(.b2b-gold) .fee-span * { color: #e2e2e2 !important; }
+.bitcoin-block .block-height, .bitcoin-block .block-height * { text-shadow: none; }
 .bitcoin-block .block-height a, .bitcoin-block .block-height-link { color: var(--b2b-text) !important; }
 .on-pool { background: var(--b2b-panel2) !important; border: 1px solid var(--b2b-line); border-radius: 999px !important; }
 
@@ -248,18 +255,19 @@ html[data-b2b="light"] .bitcoin-block.b2b-gold .animated .badge { background: rg
 .b2b-gold-new { animation: b2b-found 1.4s ease-out 4; }
 
 /* ---------- footer ---------- */
-footer, app-global-footer footer { background: rgba(0,0,0,.9) !important; border-top: 1px solid var(--b2b-line); }
+footer, app-global-footer footer { background: #000 !important; border-top: 1px solid var(--b2b-line); }
 footer a { color: var(--b2b-muted) !important; }
 footer a:hover { color: var(--b2b-text) !important; }
 .footer .progress { height: 18px; }
 
 /* ---------- light/dark toggle ---------- */
 #b2b-toggle {
-  position: fixed; right: 14px; bottom: 74px; z-index: 2147483000;
+  position: fixed; right: 14px; bottom: 14px; z-index: 2147483000;
   width: 38px; height: 38px; border-radius: 999px; padding: 0;
   display: flex; align-items: center; justify-content: center;
   background: var(--b2b-panel); color: var(--b2b-text); border: 1px solid #4a4a4a;
   font-size: 18px; line-height: 1; cursor: pointer; opacity: .85;
 }
+@media (max-width: 991px) { #b2b-toggle { top: 13px; bottom: auto; right: 12px; width: 36px; height: 36px; } }
 #b2b-toggle:hover { opacity: 1; border-color: var(--b2b-text); }
 @media (prefers-reduced-motion: reduce) { .b2b-gold-new { animation: none; } }
