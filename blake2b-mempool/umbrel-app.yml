@@ -2,9 +2,9 @@ manifestVersion: 1
 id: blake2b-mempool
 name: Mempool (blake2b)
 tagline: Bitcoin explorer with your pool's blocks in gold
-icon: https://raw.githubusercontent.com/christhealien/mempool-umbrel/master/blake2b-mempool/icon.svg?v=1.0.15
+icon: https://raw.githubusercontent.com/christhealien/mempool-umbrel/master/blake2b-mempool/icon.svg?v=1.0.16
 category: bitcoin
-version: "1.0.15"
+version: "1.0.16"
 port: 8792
 description: >-
   Your own Bitcoin block explorer, running against your own node and Electrs. It is built from the
@@ -30,6 +30,10 @@ support: https://github.com/christhealien/mempool-umbrel/issues
 submitter: christhealien
 submission: https://github.com/christhealien/mempool-umbrel
 releaseNotes: |-
+  **1.0.16**
+
+  - Build hardening only; nothing changes in how the app runs.
+
   **1.0.15**
 
   - Built on upstream mempool v3.4-beta7 (was v3.4-beta6).
